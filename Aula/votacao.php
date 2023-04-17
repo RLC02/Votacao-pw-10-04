@@ -10,33 +10,41 @@
             fclose($arquivo);
             }
         }          
-  
         function Result(){
         
           $arquivo = "dados.txt"; 
           $contAz = fopen($arquivo , 'r');
           $textoAz = fread($contAz, filesize($arquivo));
           $azul = substr_count( ' '.$textoAz.' ', 'Voto: azul' );
-          
+
           $arquivo = "dados.txt"; 
           $contVer = fopen($arquivo , 'r');
           $textoVd = fread($contVer, filesize($arquivo));
           $verde = substr_count( ' '.$textoVd.' ', 'Voto: verde' );
-         
 
          if($azul > $verde){
           $arquivo = fopen("dados.txt", "a");
           fwrite($arquivo, "O ganhador da votação é: Azul". "\n");
           fclose($arquivo);
-          $azul++;
-
-        }else{
-          if($verde > $azul){
+          echo "Votos Azul = " . $azul . '<br>';
+          echo "Votos Verde = " . $verde . '<br>';
+          echo "O ganhador é: Azul ";
+          
+          
+        }else if($verde > $azul){    
             $arquivo = fopen("dados.txt", "a");
             fwrite($arquivo, "O ganhador da votação é: Verde". "\n");
             fclose($arquivo);
-            $verde++;
-        }
+          echo "Votos Azul = " . $azul . '<br>';
+          echo "Votos Verde = " . $verde. '<br>';
+          echo "O ganhador é: verde";
+        }else if($verde == $azul){
+          $arquivo = fopen("dados.txt", "a");
+          fwrite($arquivo, "Empate". "\n");
+          fclose($arquivo);
+          echo "Votos Azul = " . $azul . '<br>';
+          echo "Votos Verde = " . $verde. '<br>';
+          echo "Ocorreu um empate";
       }
     }
     if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['Resultado']))
